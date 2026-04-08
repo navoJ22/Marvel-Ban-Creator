@@ -187,7 +187,7 @@ function drawCanvas(ctx, bg, frame, isExport = false) {
 
   ctx.drawImage(frame, 0, 0, 500, 500);
 
-  if (!isExport) { // Only draw editing border when NOT exporting
+  if (!isExport) { 
     const w = userImg.width * scale;
     const h = userImg.height * scale;
 
@@ -217,11 +217,11 @@ function draw() {
 draw();
 
 function download(canvas, name) {
-  // Draw once more for export without borders
+
   drawCanvas(canvas.getContext("2d"), 
              canvas === canvasBan ? banBg : saveBg, 
              canvas === canvasBan ? banFrame : saveFrame, 
-             true); // isExport = true
+             true); 
 
   const link = document.createElement("a");
   link.download = name;
