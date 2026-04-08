@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ban / Save Creator</title>
+<style>
+body {
+  background: #111;
+  color: white;
+  text-align: center;
+}
+canvas {
+  border: 1px solid #555;
+  margin-top: 10px;
+  cursor: grab;
+}
+.wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+</style>
+</head>
+<body>
+
+<h2>Upload Image</h2>
+<input type="file" id="upload">
+
+<br><br>
+<button onclick="download(canvasBan,'ban.png')">Download Ban</button>
+<button onclick="downloadBoth()">Download Both</button>
+<button onclick="download(canvasSave,'save.png')">Download Save</button>
+
+
+
+<div class="wrapper">
+  <canvas id="canvasBan" width="500" height="500"></canvas>
+  <canvas id="canvasSave" width="500" height="500"></canvas>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
