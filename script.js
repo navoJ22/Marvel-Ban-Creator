@@ -162,7 +162,7 @@ function downloadBoth() {
   }, 200);
 }
 
-function drawCanvas(ctx, bg, frame) {
+function drawCanvas(ctx, bg, frame, isExport = false) {
   ctx.clearRect(0, 0, 500, 500);
 
   ctx.drawImage(bg, 0, 0, 500, 500);
@@ -187,23 +187,25 @@ function drawCanvas(ctx, bg, frame) {
 
   ctx.drawImage(frame, 0, 0, 500, 500);
 
-  const w = userImg.width * scale;
-  const h = userImg.height * scale;
+  if (!isExport) { // Only draw editing border when NOT exporting
+    const w = userImg.width * scale;
+    const h = userImg.height * scale;
 
-  ctx.strokeStyle = "white";
-  ctx.strokeRect(posX, posY, w, h);
+    ctx.strokeStyle = "white";
+    ctx.strokeRect(posX, posY, w, h);
 
-  const corners = [
-    [posX, posY],
-    [posX + w, posY],
-    [posX, posY + h],
-    [posX + w, posY + h]
-  ];
+    const corners = [
+      [posX, posY],
+      [posX + w, posY],
+      [posX, posY + h],
+      [posX + w, posY + h]
+    ];
 
-  corners.forEach(([x, y]) => {
-    ctx.fillStyle = "white";
-    ctx.fillRect(x - 5, y - 5, 10, 10);
-  });
+    corners.forEach(([x, y]) => {
+      ctx.fillStyle = "white";
+      ctx.fillRect(x - 5, y - 5, 10, 10);
+    });
+  }
 }
 
 function draw() {
@@ -215,6 +217,12 @@ function draw() {
 draw();
 
 function download(canvas, name) {
+  // Draw once more for export without borders
+  drawCanvas(canvas.getContext("2d"), 
+             canvas === canvasBan ? banBg : saveBg, 
+             canvas === canvasBan ? banFrame : saveFrame, 
+             true); // isExport = true
+
   const link = document.createElement("a");
   link.download = name;
   link.href = canvas.toDataURL("image/png");
